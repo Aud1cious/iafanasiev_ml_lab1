@@ -1,4 +1,4 @@
-FROM python:3.8-slim
+FROM 3.10-windowsservercore-1809
 
 ENV PYTHONUNBUFFERED 1
 
