@@ -1,7 +1,8 @@
 import configparser
 import os
+filename = os.path.dirname(os.path.abspath(__file__))
 config = configparser.ConfigParser()
-config_path = os.path.join(os.getcwd(), 'config.ini')
+config_path = filename + '/../config.ini'
 print(config_path)
 config.read(config_path)
 print(config)
@@ -9,7 +10,7 @@ print(config)
 
 import pandas as pd
 import os
-filename = os.path.dirname(os.path.abspath(__file__))
+
 db_train = pd.read_csv(filename + '/../data_bike/train.csv')
 db_test = pd.read_csv(filename + '/../data_bike/test.csv')
 db_test.head()
