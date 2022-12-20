@@ -1,2 +1,9 @@
-FROM python:3.8.10
-RUN git clone https://github.com/Aud1cious/iafanasiev_ml_lab1.git
+FROM python:3.8-slim
+
+ENV PYTHONUNBUFFERED 1
+
+WORKDIR /app
+
+ADD . /app
+
+RUN pip install -r requirements.txt
