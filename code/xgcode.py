@@ -1,3 +1,12 @@
+import configparser
+import os
+config = configparser.ConfigParser()
+config_path = os.path.join(os.getcwd(), 'config.ini')
+print(config_path)
+config.read(config_path)
+print(config)
+
+
 import pandas as pd
 import os
 filename = os.path.dirname(os.path.abspath(__file__))
@@ -33,7 +42,7 @@ xgr=xg.XGBRegressor(max_depth=8,min_child_weight=6,gamma=0.4,colsample_bytree=0.
 #xgr.fit(X,Y)
 xgr.load_model(filename + "/../model/model.txt")
 print('Model Loaded')
-xgr.save_model(filename + "/../model/model.txt")
+xgr.save_model(filename + "/../" + config['MODEL']['path'])
 print('Model Saved')
 
 y_output=xgr.predict(X_test)
@@ -43,3 +52,4 @@ answer = pd.DataFrame({'count':(y_output)})
 answer.to_csv(filename + '/../results/sub2.csv')
 
 print('Code Completed')
+
