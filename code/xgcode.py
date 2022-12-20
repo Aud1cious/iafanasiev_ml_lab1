@@ -1,6 +1,8 @@
 import pandas as pd
-db_train = pd.read_csv('/content/train.csv')
-db_test = pd.read_csv('/content/test.csv')
+import os
+filename = os.path.dirname(os.path.abspath(__file__))
+db_train = pd.read_csv(filename + '/../data_bike/train.csv')
+db_test = pd.read_csv(filename + '/../data_bike/test.csv')
 db_test.head()
 db_train.drop(['casual', 'registered'], axis=1, inplace=True)
 db_train.columns
@@ -28,10 +30,16 @@ X_test = db_test[:].values
 
 import xgboost as xg
 xgr=xg.XGBRegressor(max_depth=8,min_child_weight=6,gamma=0.4,colsample_bytree=0.6,subsample=0.6)
-xgr.fit(X,Y)
+#xgr.fit(X,Y)
+xgr.load_model(filename + "/../model/model.txt")
+print('Model Loaded')
+xgr.save_model(filename + "/../model/model.txt")
+print('Model Saved')
 
 y_output=xgr.predict(X_test)
 y_output
 
 answer = pd.DataFrame({'count':(y_output)})
-answer.to_csv('sub2.csv')
+answer.to_csv(filename + '/../results/sub2.csv')
+
+print('Code Completed')
